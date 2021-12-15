@@ -1,4 +1,5 @@
-form(action='/entries/${_id}' method='delete')
-	label(for='_id'): b ID:
-	input(type='id' name='_id')
-	button(type='delete') Delete
+button(type='delete' onclick= (
+    each val in entries
+        action='/entries/${val._id}' method='delete'
+)) Delete entries
+

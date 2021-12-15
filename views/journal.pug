@@ -7,9 +7,13 @@ block content
 		th Date
 		th Mood
 		th Entry
+		th note id
 
 		each e in entries
 			tr
 			td= e.date
 			td= e.mood
 			td= e.entry 
+			td= e._id
+	include ./newEntry.pug
+	include ./deleteUser.pug

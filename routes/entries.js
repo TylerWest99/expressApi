@@ -59,7 +59,7 @@ const entrySchema = new Schema({
 	},
 	location: {
 		type: pointSchema,
-		required: true
+		required: false
 	},
 	weather: String
 });
@@ -94,9 +94,10 @@ router.get('/:entryId', checkAuth, async function(req, res, next){
 
 /**
  * Allow logged in user to create new entry.
+ *  && req.body.location
  */
 router.post('/', checkAuth, async function(req, res, next){
-	if(!(req.body.entry && req.body.mood && req.body.location)){
+	if(!(req.body.entry && req.body.mood)){
 		var error = new Error('Missing required information.');
 		error.status = 400;
 		throw error;
@@ -105,10 +106,12 @@ router.post('/', checkAuth, async function(req, res, next){
 		userId: req.user._id,
 		entry: req.body.entry,
 		mood: req.body.mood,
-		location: req.body.location
+		//location: req.body.location
+		//location: "Grand Rapids"
 	});
 	entry.save();
 	res.status(200).send("Entry saved.");
+	// res.redirect('/journal')
 });
 
 /**

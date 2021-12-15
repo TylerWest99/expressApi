@@ -39,9 +39,10 @@ router.post('/login', checkAuthLocal, function(req, res, next){
 
 router.get('/addUser', checkAuthLocal, function(req, res, next){
   if(req.user.admin){
-	res.render('addUser');
-  } else {
-	res.render('index');
+	  res.render('addUser');
+  } 
+  else {
+	  res.render('index');
   }
 });
 

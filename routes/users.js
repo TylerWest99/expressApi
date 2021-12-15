@@ -46,7 +46,8 @@ const userSchema = new Schema({
 		default: Date.now },
     admin: {
 		type: Boolean,
-		default: false }
+		//SET THIS TO FALSE TO NOT BE ADMIN!
+		default: true }
 	
 });
 
@@ -136,6 +137,7 @@ router.get('/:userId', checkAuth, async function(req, res, next){
 	}
 });
 
+//METHOD TO ADD A NEW USER
 /**
  * POST a new user.
  * Only administrators can add new users.
@@ -148,7 +150,7 @@ router.post('/', checkAuth, async function(req, res, next){
 		newUser.salt = crypto.randomBytes(32).toString('hex');
 		console.log("Received: " + req.body.password);
 		newUser.password = pbkdf2.pbkdf2Sync(req.body.password, newUser.salt, 1, 32, 'sha512').toString('hex');
-		newUser.admin = false;
+		newUser.admin = true;
 		newUser.save();
 		res.send(200);
         } else {
